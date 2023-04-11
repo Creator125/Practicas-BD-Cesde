@@ -48,3 +48,41 @@ WHERE Cantidad >= 20 AND Cantidad <= 40
 SELECT DISTINCT Ciudad, NombreCli, Apellido
 FROM Clientes
 WHERE Ciudad = 'Itagui' OR Ciudad = 'Sabaneta'
+
+
+--Edicion 10/04/2023
+
+SELECT NombrePro AS 'Nombre del producto', Precio
+FROM Productos
+WHERE Precio >= 1000000 AND Precio <= 2000000
+
+SELECT NombrePro AS 'Nombre del producto', Precio
+FROM Productos
+WHERE Precio BETWEEN 1000000 AND 2000000
+
+SELECT NombreCli, Ciudad 
+FROM Clientes
+WHERE Ciudad = 'sabaneta' OR Ciudad = 'envigado'
+
+SELECT NombreCli, Ciudad 
+FROM Clientes
+WHERE Ciudad IN('sabaneta', 'envigado', 'itagui')
+
+SELECT NombreCli
+FROM Clientes
+WHERE NombreCli LIKE 'A%A'
+
+SELECT NombreCli
+FROM Clientes
+WHERE Ciudad LIKE 'medell_n'
+
+SELECT NombreCli, Ciudad 
+FROM Clientes
+WHERE Ciudad NOT IN('sabaneta', 'envigado', 'itagui')
+ORDER BY Ciudad
+
+SELECT NombrePro,FORMAT(Precio, '#,###') AS Precio, 
+		FORMAT((Precio * Iva / 100), '#,###') AS 'Valor Iva', 
+		(Precio * 1.07) AS 'Nuevo Precio',
+		((Precio * Iva / 100) + Precio) AS 'Precio por Iva'
+FROM Productos
