@@ -1,23 +1,23 @@
--- 1. øCu·ntos registros contiene la tabla CovidAntioquia?
+-- 1. ¬øCu√°ntos registros contiene la tabla CovidAntioquia?
 SELECT COUNT(*)
 FROM CovidAntioquia
 
---2. øCu·ntos pacientes pertenecen a la de Copacabana?
+-- 2. ¬øCu√°ntos pacientes pertenecen a la de Copacabana?
 SELECT id, Ciudad
 FROM CovidAntioquia
 WHERE Ciudad = 'copacabana'
 
--- 3. øCu·ntos pacientes est·n entre los 40 y 60 aÒos?
+-- 3. ¬øCu√°ntos pacientes est√°n entre los 40 y 60 a√±os?
 SELECT id, Edad
 FROM CovidAntioquia
-WHERE Edad BETWEEN 40 AND 60
+WHERE Edad BETWEEN 40 AND 60PRIMARY
 
--- 4. N˙mero de Hombres
+-- 4. N√∫mero de Hombres
 SELECT id, genero
 FROM CovidAntioquia
 WHERE genero = 'male'
 
--- 5. N˙mero de Mujeres
+-- 5. N√∫mero de Mujeres
 SELECT id, genero
 FROM CovidAntioquia
 WHERE genero = 'female'
@@ -26,7 +26,7 @@ WHERE genero = 'female'
 SELECT DISTINCT Ciudad
 FROM CovidAntioquia
 
--- 7. Mostrar las 15 edades m·s altas, sin repetirlas
+-- 7. Mostrar las 15 edades m√°s altas, sin repetirlas
 SELECT DISTINCT TOP 15 Edad
 FROM CovidAntioquia
 ORDER BY EDAD DESC
@@ -40,12 +40,52 @@ WHERE Eps IN('sura')
 SELECT TOP (35) PERCENT Estado, id
 FROM CovidAntioquia
 
--- 10. Mostrar todos los datos de la ciudad de MedellÌn que se encuentren hospitalizados o en Uci.
+-- 10. Mostrar todos los datos de la ciudad de Medell√≠n que se encuentren hospitalizados o en Uci.
 SELECT *
 FROM CovidAntioquia
-WHERE Ciudad ='medellÌn' AND (UbicaciÛn = 'hospital' OR UbicaciÛn = 'uci')
+WHERE Ciudad ='medell√≠n' AND (Ubicaci√≥n = 'hospital' OR Ubicaci√≥n = 'uci')
 
--- 11. Cuantos pacientes de la ciudad de Itag¸Ì tienen entre 20 y 40 aÒos
+-- 11. Cuantos pacientes de la ciudad de Itag√º√≠ tienen entre 20 y 40 a√±os
 SELECT id, Ciudad, Edad
 FROM CovidAntioquia
 WHERE Ciudad ='itagui' AND (Edad >= 20 OR Edad <= 40)
+
+-- 12. Mostrar todos los datos de los pacientes que no tienen Eps con m√°s de 20 de aislamiento.
+SELECT id, Eps, diasAislamiento
+FROM CovidAntioquia
+WHERE Eps = 'N/A' AND diasAislamiento > 20
+
+-- 13. Mostrar la Ciudad, edad, eps, genero, estado de los pacientes fallecidos que sean hombres
+SELECT Ciudad, Edad, Eps, genero, Estado
+FROM CovidAntioquia
+WHERE Estado = 'fallecido' AND genero = 'male'
+
+-- 14. Mostrar ciudad, eps, genero, tipo de contagio de la ciudad bello o que el tipo de contagio este En Estudio.
+SELECT Ciudad, Edad, Eps, genero, TipoContagio
+FROM CovidAntioquia
+WHERE Ciudad = 'bello' OR TipoContagio = 'En estudio'
+
+-- 15. Mostrar Eps, d√≠as de aislamiento, genero, ubicaci√≥n, valor d√≠a y que el estado sea Grave y no tenga eps.
+SELECT Eps, diasAislamiento, genero, Ubicaci√≥n, VlrDia, Estado
+FROM CovidAntioquia
+WHERE Estado = 'grave' AND Eps = 'N/A'
+
+-- 16. Mostrar la ciudad, eps, genero. ubicaci√≥n, estado de las eps Coomeva y Sisb√©n.
+SELECT Eps, genero, Ubicaci√≥n
+FROM CovidAntioquia
+WHERE Eps IN('coomeva', 'sisb√©n')
+
+-- 17. Mostrar todos los datos menos los de los pacientes que hayan fallecido.
+SELECT *
+FROM CovidAntioquia
+WHERE Estado NOT IN('fallecido')
+
+-- 18. Mostrar ciudad, eps. tipo contagio y ubicaci√≥n, de Girardota y bello, donde los d√≠as de aislamiento se encuentre entre 10 y 15 y sean mujeres.
+SELECT Ciudad, Eps, TipoContagio, Ubicaci√≥n
+FROM CovidAntioquia
+WHERE (diasAislamiento BETWEEN 10 AND 15) AND genero = 'female'
+
+-- 19. Mostrar eps, g√©nero, tipo contagio de todos los hombres que se encuentren en casa y que la eps termine en a
+SELECT Eps, genero, TipoContagio
+FROM CovidAntioquia
+WHERE genero = 'male' AND Ubicaci√≥n = 'casa' AND (Eps LIKE '%a')
