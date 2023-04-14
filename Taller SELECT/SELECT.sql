@@ -10,7 +10,7 @@ WHERE Ciudad = 'copacabana'
 -- 3. ¿Cuántos pacientes están entre los 40 y 60 años?
 SELECT id, Edad
 FROM CovidAntioquia
-WHERE Edad BETWEEN 40 AND 60PRIMARY
+WHERE Edad BETWEEN 40 AND 60
 
 -- 4. Número de Hombres
 SELECT id, genero
@@ -89,3 +89,30 @@ WHERE (diasAislamiento BETWEEN 10 AND 15) AND genero = 'female'
 SELECT Eps, genero, TipoContagio
 FROM CovidAntioquia
 WHERE genero = 'male' AND Ubicación = 'casa' AND (Eps LIKE '%a')
+
+-- 20. Mostrar ciudad, eps, diasAílamiento, de todos los fallecidos que estuvieron en UCI.
+-- Campos calculados. Cambiar el nombre de la columna diasAislamiento por Dias de Hospitalización
+SELECT Ciudad, Eps, diasAislamiento AS 'Dias de Hospitalización'
+FROM CovidAntioquia
+WHERE Estado = 'fallecido' AND Ubicación = 'Uci'
+
+/* 21. Mostrar la ciudad, eps, días de Aislamiento, Valor Dia de todos los que están Hospitalizados, 
+calcular la columna Valor Hospitalización con los dias de aislamiento y el valor dia. */
+SELECT Ciudad, Eps, diasAislamiento, VlrDia,
+		FORMAT((VlrDia * diasAislamiento), '#,###') AS 'Valor Hospitalización'
+FROM CovidAntioquia
+WHERE Ubicación = 'hospital'
+
+-- 22. Mostrar la eps, dias de aislamiento, el Valor día. calcular el subtotal y realizar un descuento del 30%.
+SELECT Eps, diasAislamiento, VlrDia,
+		FORMAT((VlrDia * diasAislamiento), '#,###') AS 'Subtotal',
+        FORMAT((VlrDia - ('Subtotal' * 0.30)), '#,###') AS 'Descuento del 30%'
+FROM CovidAntioquia
+
+/* 23. Mostrar la ciudad, días de aislamiento, el Valor día. calcular el subtotal y realizar un descuento del 
+50% a las personas que sean mayores de 60 años */
+SELECT Eps, diasAislamiento, VlrDia,
+		FORMAT((VlrDia * diasAislamiento), '#,###') AS 'Subtotal',
+        FORMAT((VlrDia - ('Subtotal' * 0.50)), '#,###') AS 'Descuento del 50%'
+FROM CovidAntioquia
+WHERE Edad > 60
