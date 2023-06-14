@@ -27,16 +27,22 @@ CREATE TABLE Vuelos (
   clase VARCHAR(10)
 );
 
+CREATE TABLE Contratos(
+	idContrato INT PRIMARY KEY,
+    codigoSucursal INT,
+    numeroVuelo INT,
+    CodigoHotel INT,
+    FOREIGN KEY (codigoSucursal) REFERENCES Sucursal(codigoSucursal),
+    FOREIGN KEY (numeroVuelo) REFERENCES Vuelos(numeroVuelo),
+    FOREIGN KEY (CodigoHotel) REFERENCES Hotel(CodigoHotel)
+);
+
 CREATE TABLE Turistas(
-  cedulaPasaporte VARCHAR(20) PRIMARY KEY,
-  nombre VARCHAR(20),
-  apellido VARCHAR(100),
-  correo VARCHAR(100),
-  celular VARCHAR(20),
-  codigoSucursal INT,
-  numeroVuelo INT,
-  CodigoHotel INT,
-  FOREIGN KEY (codigoSucursal) REFERENCES Sucursal(codigoSucursal),
-  FOREIGN KEY (numeroVuelo) REFERENCES Vuelos(numeroVuelo),
-  FOREIGN KEY (CodigoHotel) REFERENCES Hotel(CodigoHotel)
+	cedulaPasaporte VARCHAR(20) PRIMARY KEY,
+	nombre VARCHAR(20),
+	apellido VARCHAR(100),
+	correo VARCHAR(100),
+	celular VARCHAR(20),
+    idContrato INT,
+	FOREIGN KEY (idContrato) REFERENCES Contratos(idContrato)
 );

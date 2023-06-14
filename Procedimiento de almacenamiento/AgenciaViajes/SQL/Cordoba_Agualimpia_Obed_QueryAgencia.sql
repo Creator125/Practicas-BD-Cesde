@@ -1,26 +1,23 @@
 -- Realizando consultas con Inner Join
-SELECT turistas.cedulaPasaporte, hotel.codigoHotel
-FROM turistas INNER JOIN hotel ON turistas.CodigoHotel = hotel.CodigoHotel
-WHERE hotel.nHabitaciones > 1;
+SELECT Turistas.cedulaPasaporte, Turistas.nombre, Turistas.apellido, Contratos.idContrato
+FROM Turistas
+INNER JOIN Contratos ON Turistas.idContrato = Contratos.idContrato;
 
-SELECT turistas.cedulaPasaporte, sucursal.codigoSucursal
-FROM turistas INNER JOIN sucursal ON turistas.codigoSucursal = sucursal.codigoSucursal;
+SELECT Contratos.idContrato, Hotel.nombre, Hotel.direccion, Hotel.ciudad
+FROM Contratos
+INNER JOIN Hotel ON Contratos.CodigoHotel = Hotel.codigoHotel;
 
-SELECT CONCAT(turistas.nombre,' ',turistas.apellido) AS 'Nombre del turista', vuelos.fechaHora, vuelos.origen, vuelos.destino, hotel.nombre AS 'Nombre del hotel'
-FROM turistas INNER JOIN vuelos ON turistas.numeroVuelo = vuelos.numeroVuelo
-			  INNER JOIN hotel ON turistas.codigoHotel = hotel.codigoHotel
-WHERE vuelos.destino = 'China';
+SELECT Contratos.idContrato, Vuelos.numeroVuelo, Vuelos.fechaHora, Vuelos.origen, Vuelos.destino
+FROM Contratos
+INNER JOIN Vuelos ON Contratos.numeroVuelo = Vuelos.numeroVuelo;
               
-SELECT turistas.cedulaPasaporte AS 'Identificacion del turista',vuelos.numeroVuelo, vuelos.fechaHora, vuelos.origen, vuelos.destino, 
-	   FORMAT(vuelos.precioPersona, '#, ###') AS 'Precio por persona', FORMAT(valorEquipaje, '#,###') AS 'Valor del equipaje'
-FROM turistas INNER JOIN vuelos ON turistas.numeroVuelo = vuelos.numeroVuelo
-WHERE vuelos.clase = 'Primera';
+SELECT Sucursal.codigoSucursal, Sucursal.direccion, Sucursal.telefono, Contratos.idContrato
+FROM Sucursal
+INNER JOIN Contratos ON Sucursal.codigoSucursal = Contratos.codigoSucursal;
 
 -- Realizando consultas de Campos Calculados
-SELECT hotel.*, turistas.cedulaPasaporte, FORMAT((hotel.precioPersona-(hotel.precioPersona * 0.20)), '#,###') AS 'Descuento del 20%' 
-FROM hotel INNER JOIN turistas ON hotel.codigoHotel = turistas.codigoHotel
-		   INNER JOIN vuelos ON turistas.numeroVuelo = vuelos.numeroVuelo
-WHERE vuelos.clase = 'Turista';
+SELECT idContrato, FORMAT((precioPersona + valorEquipaje), '#,###') AS precioTotal
+FROM Contratos;
 
 SELECT *, FORMAT((precioPersona-(precioPersona * 0.15)), '#,###') AS 'Descuento del 15%'
 FROM vuelos
@@ -39,9 +36,9 @@ SELECT ciudad, AVG(precioPersona) AS 'Promedio de precio'
 FROM Hotel
 GROUP BY ciudad;
 
-SELECT sucursal.codigoSucursal, COUNT(*) AS 'Cantidad de turistas'
-FROM sucursal INNER JOIN turistas ON sucursal.codigoSucursal = turistas.codigoSucursal
-GROUP BY sucursal.codigoSucursal;
+SELECT Sucursal.codigoSucursal, COUNT(Contratos.idContrato) AS cantidadContratos
+FROM Sucursal INNER JOIN Contratos ON Sucursal.codigoSucursal = Contratos.codigoSucursal
+GROUP BY Sucursal.codigoSucursal;
 
 SELECT ciudad, MAX(nHabitaciones) AS 'Maximo de numeros de habitaciones', MIN(nHabitaciones) AS 'Minimo de numeros de habitaciones'
 FROM Hotel
