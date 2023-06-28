@@ -13,3 +13,8 @@ Estas son pecticas ejercicios para pracicar el lenguaje de consulta de base de d
 - Javatpoint: https://www.javatpoint.com/sql-tutorial
 
 - Geekforgeeks: https://www.geeksforgeeks.org/sql-tutorial/?ref=lbp
+
+## Referencias adicionales
+
+##### Normalizacion de bases de datos
+- https://platzi.com/blog/normalizar-una-base-de-datos-y-no-morir-en-el-intento/
