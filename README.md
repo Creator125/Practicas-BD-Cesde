@@ -8,7 +8,7 @@ Estas son pecticas ejercicios para pracicar el lenguaje de consulta de base de d
 
 - Tutorialspoint: https://www.tutorialspoint.com/sql/index.htm
 
-- Microsoft (Documentacion oficial de MS SQL Serve: 
+- Microsoft (Documentacion oficial de MS SQL Serve: https://learn.microsoft.com/es-es/sql/t-sql/language-reference?view=sql-server-ver16
 
 - Javatpoint: https://www.javatpoint.com/sql-tutorial
 
