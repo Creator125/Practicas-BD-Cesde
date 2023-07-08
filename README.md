@@ -18,3 +18,6 @@ Estas son pecticas ejercicios para pracicar el lenguaje de consulta de base de d
 
 ##### Normalizacion de bases de datos
 - https://platzi.com/blog/normalizar-una-base-de-datos-y-no-morir-en-el-intento/
+
+##### Tipos de datos
+- https://www.tecnologias-informacion.com/tipos-sql.html
